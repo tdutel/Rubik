@@ -41,7 +41,10 @@ class RubiksCube:
 	# Additional methods for cube manipulation can be added here
 
 
-	def rotate_face_cw(self, face_name, face, facecpy):
+	def rotate_face_cw(self, face_name):
+
+		face = self.faces
+		facecpy = self._deep_copy_faces()
 
 		face[face_name][0][0] = facecpy[face_name][2][0]
 		face[face_name][0][1] = facecpy[face_name][1][0]
@@ -54,54 +57,43 @@ class RubiksCube:
 		face[face_name][2][1] = facecpy[face_name][1][2]
 		face[face_name][2][2] = facecpy[face_name][0][2]
 
+		return face, facecpy
 
 	def Up(self):
 		"""Rotate the upper face clockwise"""
-		face = self.faces
-		facecpy = self._deep_copy_faces()
 		
 		# Rotate the U face clockwise
-		self.rotate_face_cw('U', face, facecpy)
-		# face['U'][0][0] = facecpy['U'][2][0]
-		# face['U'][0][1] = facecpy['U'][1][0]
-		# face['U'][0][2] = facecpy['U'][0][0]
+		face, facecpy = self.rotate_face_cw('U')
 
-		# face['U'][1][0] = facecpy['U'][2][1]
-		# face['U'][1][2] = facecpy['U'][0][1]
-		
-		# face['U'][2][0] = facecpy['U'][2][2]
-		# face['U'][2][1] = facecpy['U'][1][2]
-		# face['U'][2][2] = facecpy['U'][0][2]
-		
 		# Cycle the edges (L, F, R, B faces)
 		face['L'][0] = facecpy['F'][0]
 		face['F'][0] = facecpy['R'][0]
 		face['R'][0] = facecpy['B'][0]
 		face['B'][0] = facecpy['L'][0]
 
+		print("U")
+
 
 	def Down(self):
 		"""Rotate the down face clockwise"""
-		face = self.faces
-		facecpy = self._deep_copy_faces()
-		
+
 		# Rotate the D face clockwise
-		self.rotate_face_cw('D', face, facecpy)
-		
+		face, facecpy = self.rotate_face_cw('D')
+
 		# Cycle the edges (L, F, R, B faces)
 		face['L'][2] = facecpy['B'][2]
 		face['F'][2] = facecpy['L'][2]
 		face['R'][2] = facecpy['F'][2]
 		face['B'][2] = facecpy['R'][2]
 
+		print("D")
+
 
 	def Right(self):
 		"""Rotate the right face clockwise"""
-		face = self.faces
-		facecpy = self._deep_copy_faces()
-		
+
 		# Rotate the R face clockwise
-		self.rotate_face_cw('R', face, facecpy)
+		face, facecpy = self.rotate_face_cw('R')
 
 		# Cycle the edges (U, F, D, B faces)
 		for i in range(3):
@@ -110,14 +102,14 @@ class RubiksCube:
 			face['D'][i][2] = facecpy['B'][2 - i][0]
 			face['B'][i][0] = facecpy['U'][2 - i][2]
 
+		print("R")
+
 
 	def Left(self):
 		"""Rotate the left face clockwise"""
-		face = self.faces
-		facecpy = self._deep_copy_faces()
-		
+
 		# Rotate the L face clockwise
-		self.rotate_face_cw('L', face, facecpy)
+		face, facecpy = self.rotate_face_cw('L')
 		
 		# Cycle the edges (U, F, D, B faces)
 		for i in range(3):
@@ -126,14 +118,14 @@ class RubiksCube:
 			face['D'][i][0] = facecpy['F'][i][0]
 			face['B'][i][2] = facecpy['D'][2 - i][0]
 
+		print("L")
+
 
 	def Front(self):
 		"""Rotate the upper face clockwise"""
-		face = self.faces
-		facecpy = self._deep_copy_faces()
 		
 		# Rotate the F face clockwise
-		self.rotate_face_cw('F', face, facecpy)
+		face, facecpy = self.rotate_face_cw('F')
 
 		# Cycle the edges (L, D, R, U faces)
 		for i in range(3):
@@ -142,14 +134,14 @@ class RubiksCube:
 			face['R'][i][0] = facecpy['U'][2][i]
 			face['U'][2][i] = facecpy['L'][2 - i][2]
 
+		print("F")
+
 
 	def Back(self):
 		"""Rotate the back face clockwise"""
-		face = self.faces
-		facecpy = self._deep_copy_faces()
-		
+
 		# Rotate the B face clockwise
-		self.rotate_face_cw('B', face, facecpy)
+		face, facecpy = self.rotate_face_cw('B')
 		
 		# Cycle the edges (U, R, D, L faces)
 		for i in range(3):
@@ -157,6 +149,10 @@ class RubiksCube:
 			face['R'][i][2] = facecpy['D'][2][2 - i]
 			face['D'][2][i] = facecpy['L'][i][0]
 			face['L'][i][0] = facecpy['U'][0][2 - i]
+
+		print("B")
+
+
 
 	# def display(self):
 	# 	"""Display the cube state"""
@@ -187,10 +183,6 @@ class RubiksCube:
 
 # Main program
 if __name__ == "__main__":
+	print("=== Rubik ===")
 	cube = RubiksCube()
-	print("=== Rubik's Cube ===")
-	cube.display()
-	
-	print("\n--- After rotating U face ---")
-	# cube.rotate_U()
-	# cube.display()
+	cube.display_in_term()

@@ -1,3 +1,6 @@
+import string
+
+
 class RubiksCube:
 	def __init__(self):
 		# Initialize a solved cube (6 faces, each with 9 squares)
@@ -74,7 +77,6 @@ class RubiksCube:
 		faces['R'][0] = facescpy['B'][0]
 		faces['B'][0] = facescpy['L'][0]
 
-		print("U")
 
 
 	def Down(self):
@@ -88,8 +90,6 @@ class RubiksCube:
 		faces['F'][2] = facescpy['L'][2]
 		faces['R'][2] = facescpy['F'][2]
 		faces['B'][2] = facescpy['R'][2]
-
-		print("D")
 
 
 	def Right(self):
@@ -105,7 +105,6 @@ class RubiksCube:
 			faces['D'][i][2] = facescpy['B'][2 - i][0]
 			faces['B'][i][0] = facescpy['U'][2 - i][2]
 
-		print("R")
 
 
 	def Left(self):
@@ -121,8 +120,6 @@ class RubiksCube:
 			faces['D'][i][0] = facescpy['F'][i][0]
 			faces['B'][i][2] = facescpy['D'][2 - i][0]
 
-		print("L")
-
 
 	def Front(self):
 		"""Rotate the upper face clockwise"""
@@ -136,8 +133,6 @@ class RubiksCube:
 			faces['D'][0][i] = facescpy['R'][2 - i][0]
 			faces['R'][i][0] = facescpy['U'][2][i]
 			faces['U'][2][i] = facescpy['L'][2 - i][2]
-
-		print("F")
 
 
 	def Back(self):
@@ -153,7 +148,73 @@ class RubiksCube:
 			faces['D'][2][i] = facescpy['L'][i][0]
 			faces['L'][i][0] = facescpy['U'][0][2 - i]
 
-		print("B")
+
+	def apply_move(self, move):
+		"""Apply a move to the cube"""
+		if move == "U":
+			self.Up()
+			print("U")
+		elif move == "U'":
+			self.Up()
+			self.Up()
+			self.Up()
+			print("U'")
+	
+		elif move == "D":
+			self.Down()
+			print("D")
+		elif move == "D'":
+			self.Down()
+			self.Down()
+			self.Down()
+			print("D'")
+	
+		elif move == "R":
+			self.Right()
+			print("R")
+		elif move == "R'":
+			self.Right()
+			self.Right()
+			self.Right()
+			print("R'")
+	
+		elif move == "L":
+			self.Left()
+			print("L")
+		elif move == "L'":
+			self.Left()
+			self.Left()
+			self.Left()
+			print("L'")
+	
+		elif move == "F":
+			self.Front()
+			print("F")
+		elif move == "F'":
+			self.Front()
+			self.Front()
+			self.Front()
+			print("F'")
+	
+		elif move == "B":
+			self.Back()
+			print("B")
+		elif move == "B'":
+			self.Back()
+			self.Back()
+			self.Back()
+			print("B'")
+	
+		else:
+			print(f"Invalid move: {move}")
+
+
+	def input_receiver(self, string):
+		"""Parse a string of moves and apply them to the cube"""
+		moves = string.split()
+		print(" all moves: ", moves)
+		for move in moves:
+			self.apply_move(move)
 
 
 # Main program

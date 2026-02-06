@@ -24,7 +24,9 @@ def main():
 	# cube.Back()
 	cube.input_receiver("U R D L F B")
 	cube.display_in_term()
+	print("Is solved?", cube.is_solved())
 	cube.input_receiver("B' F' L' D' R' U'")
 	cube.display_in_term()
+	print("Is solved?", cube.is_solved())
 if __name__ == "__main__":
 	main()
